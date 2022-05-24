@@ -4,6 +4,7 @@ import 'package:odc_project/Compounent/Consts.dart';
 import 'package:odc_project/Compounent/MyButton.dart';
 import 'package:odc_project/Screens/LogIn/LogInScree.dart';
 import 'package:odc_project/Screens/SignUp/SignUpScreen.dart';
+import 'package:odc_project/Shared/CasheHelper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreens extends StatefulWidget {
@@ -36,7 +37,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
             pageBuilder(
               text: 'learn a lot of courses is orange education',
               hint:
-                  'learn a lot of courses is orange education learn a lot of courses is orange education',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
               image: SvgPicture.asset(
                 'assets/images/onBoarding1.svg',
               ),
@@ -44,7 +45,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
             pageBuilder(
               text: 'learn a lot of courses is orange education',
               hint:
-                  'learn a lot of courses is orange education learn a lot of courses is orange education',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
               image: SvgPicture.asset(
                 'assets/images/onBoarding 2.svg',
               ),
@@ -52,7 +53,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
             pageBuilder(
               text: 'learn a lot of courses is orange education',
               hint:
-                  'learn a lot of courses is orange education learn a lot of courses is orange education',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
               image: SvgPicture.asset(
                 'assets/images/onBoarding3.svg',
               ),
@@ -88,7 +89,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                     text: 'Join Now',
                     color: K_ORANGE_COLOR,
                     press: () {
-                      pushReplacement(route: SignUpScreen(), context: context);
+                      endOnBoardingScreen(SignUpScreen());
                     },
                     textColor: K_WHITE_Color,
                     boarderColor: K_ORANGE_COLOR,
@@ -97,7 +98,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                     text: 'Log in',
                     color: K_WHITE_Color,
                     press: () {
-                      pushReplacement(route: LogInScreen(), context: context);
+                      endOnBoardingScreen(LogInScreen());
                     },
                     textColor: K_ORANGE_COLOR,
                     boarderColor: K_ORANGE_COLOR,
@@ -108,6 +109,16 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
           ],
         ),
       ),
+    );
+  }
+
+  void endOnBoardingScreen(Widget route) {
+    CashHelper.saveData(key: 'onBoarding', value: true).then(
+      (value) {
+        if (value) {
+          pushReplacement(route: route, context: context);
+        }
+      },
     );
   }
 }
