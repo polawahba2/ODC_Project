@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:odc_project/Compounent/ForgetPasswordFormBuilder.dart';
+import 'package:odc_project/Cubit/AppCubit/AppCubit.dart';
 import 'package:odc_project/Screens/AllForgetPasswordScreens/VerifyYourEmail.dart';
 
 import '../../Compounent/Consts.dart';
@@ -11,6 +12,7 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   String screenText =
       'Please enter your email address to recieve vervication code ';
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ForgetPasswordFormBuilder(
@@ -19,6 +21,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       text: screenText,
       thirdCompounentOfScreen: TextFieldContainer(
         child: TextFormField(
+          controller: emailController,
           decoration: const InputDecoration(
             hintText: 'E-mail',
             hintStyle: K_HINT_TEXT_STYLE_SIGN_UP,
@@ -34,6 +37,8 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
       customButton: MyButton(
         press: () {
+          AppCubit.getCubit(context)
+              .postEmailToResetPassword(email: emailController.text);
           pushOnly(route: VerifyYourEmail(), context: context);
         },
         buttonInLogInScreen: true,

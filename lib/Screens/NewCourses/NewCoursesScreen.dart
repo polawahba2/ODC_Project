@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:odc_project/Compounent/Consts.dart';
+import 'package:odc_project/Screens/CourseDetails.dart/CourseDetailsScreen.dart';
+import 'package:odc_project/Screens/CourseDetails.dart/CourseDetailsScreenForAllCourses.dart';
 
 import '../../Compounent/CourseImageAndInfoBuilder.dart';
+import '../../Cubit/AppCubit/AppCubit.dart';
 
 class NewCoursesScreen extends StatelessWidget {
   const NewCoursesScreen({Key? key}) : super(key: key);
@@ -9,11 +12,12 @@ class NewCoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var myCubit = AppCubit.getCubit(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Web Development',
+          'All Courses',
           style: TextStyle(
             color: K_BLACK_Color,
             fontSize: 19,
@@ -37,24 +41,36 @@ class NewCoursesScreen extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CourseImageAndInfoBuilder(
-                        size: size,
-                        courseImage: Image(
-                          image: const NetworkImage(
-                            'https://img.freepik.com/free-vector/gradient-ui-ux-background_23-2149052117.jpg',
+                    return InkWell(
+                      onTap: () {
+                        myCubit.getCourseByItsId(
+                            myCubit.allCoursesModel!.data![index].id!.toInt());
+                        pushOnly(
+                            route:
+                                CourseDetailsScreenForAllCourses(index: index),
+                            context: context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CourseImageAndInfoBuilder(
+                          size: size,
+                          courseImage: Image(
+                            image: NetworkImage(
+                              ('${myCubit.allCoursesModel!.data![index].imageUrl}'),
+                            ),
+                            width: size.width * 0.27,
+                            height: size.height * 0.10,
+                            fit: BoxFit.fill,
                           ),
-                          width: size.width * 0.27,
-                          height: size.height * 0.10,
-                          fit: BoxFit.fill,
+                          courseMainText:
+                              ('${myCubit.allCoursesModel!.data![index].courseName}'),
+                          courseSecoundText:
+                              ('${myCubit.allCoursesModel!.data![index].admin!.adminName}'),
                         ),
-                        courseMainText: 'Learn UI/UX For Beginner',
-                        courseSecoundText: 'Sayed Ali',
                       ),
                     );
                   },
-                  itemCount: 17,
+                  itemCount: myCubit.allCoursesModel!.data!.length,
                   separatorBuilder: (context, index) {
                     return Container(
                       height: 1,

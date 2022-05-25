@@ -28,7 +28,10 @@ void main() async {
         MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (BuildContext context) => AppCubit(),
+              create: (BuildContext context) => AppCubit()
+                ..getCategories()
+                ..getAllCourses()
+                ..getUserProfile(),
             ),
           ],
           child: MaterialApp(

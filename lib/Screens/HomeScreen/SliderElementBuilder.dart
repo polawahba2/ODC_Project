@@ -6,10 +6,12 @@ class SliderElementBuilder extends StatelessWidget {
   String courseName;
   String courseDetails;
   String courseInstructor;
+  String imageUrl;
   SliderElementBuilder({
     required this.courseName,
     required this.courseInstructor,
     required this.courseDetails,
+    required this.imageUrl,
     Key? key,
   }) : super(key: key);
 
@@ -28,9 +30,9 @@ class SliderElementBuilder extends StatelessWidget {
             width: size.width * 0.7,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(
-                  'https://miro.medium.com/max/1400/1*YZ2fsT9k1CmlMil-Fda0Zg.png',
+                  imageUrl,
                 ),
                 fit: BoxFit.fill,
               ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:odc_project/Compounent/Consts.dart';
+import 'package:odc_project/Cubit/AppCubit/AppCubit.dart';
+import 'package:odc_project/Models/UserProfileModel.dart';
+import 'package:odc_project/Screens/LogIn/LogInScree.dart';
+import 'package:odc_project/Shared/CasheHelper.dart';
 
 import '../../Compounent/CourseImageAndInfoBuilder.dart';
 
@@ -47,9 +51,9 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Text(
-                'Ahmed Abaza',
-                style: TextStyle(
+              Text(
+                '${AppCubit.getCubit(context).userProfileModel!.data!.student!.studentName}',
+                style: const TextStyle(
                   fontSize: 25,
                   fontWeight: K_W600,
                 ),
@@ -59,11 +63,11 @@ class MyProfileScreen extends StatelessWidget {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'Ahmedabaza@gmail.com',
-                    style: TextStyle(
+                    '${AppCubit.getCubit(context).userProfileModel!.data!.student!.email}',
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                     ),
@@ -131,16 +135,16 @@ class MyProfileScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-
-                FocusScope.of(context).requestFocus(FocusNode());
               },
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                CashHelper.saveData(key: 'token', value: '');
+                AppCubit.getCubit(context).bottomNavIndex = 0;
+                pushReplacement(context: context, route: LogInScreen());
               },
-              child: const Text('Add'),
+              child: const Text('LogOut'),
             ),
           ],
         );

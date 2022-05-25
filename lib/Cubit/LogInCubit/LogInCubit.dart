@@ -30,6 +30,7 @@ class LogInCubit extends Cubit<LogInStates> {
       // print('user token is${logInModel.data!.accessToken}');
       emit(LogInSucessfulState(logInModel));
     }).catchError((error) {
+      print(error.toString());
       emit(LogInErrorState(error.toString()));
     });
   }

@@ -45,11 +45,11 @@ class ForgetPasswordFormBuilder extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: size.height * 0.13,
+                  height: size.height * 0.045,
                 ),
                 SvgPicture.asset(
                   locationOfImage,

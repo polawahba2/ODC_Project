@@ -28,7 +28,10 @@ class LogInScreen extends StatelessWidget {
       child: BlocConsumer<LogInCubit, LogInStates>(listener: (context, state) {
         if (state is LogInSucessfulState) {
           pushReplacement(route: const HomeScreen(), context: context);
-          String token = CashHelper.getDate(key: 'token') ?? '';
+          CashHelper.saveData(
+              key: 'token', value: state.logInModel.data!.accessToken);
+          token = state.logInModel.data!.accessToken!;
+
           print(token);
         }
       }, builder: (context, state) {

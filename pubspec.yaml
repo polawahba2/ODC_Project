@@ -41,6 +41,8 @@ dependencies:
   carousel_slider: ^4.1.1
   dio: ^4.0.6
   shared_preferences: ^2.0.15
+  conditional_builder_null_safety: ^0.0.6
+  custom_radio_grouped_button: ^2.1.2+1
 
 dev_dependencies:
   flutter_test:

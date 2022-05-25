@@ -28,8 +28,16 @@ class SignUpScreen extends StatelessWidget {
       child: BlocConsumer<SignUpCubit, SignUpStates>(
         listener: (context, state) {
           if (state is SignUpSucessfulState) {
-            pushReplacement(route: const HomeScreen(), context: context);
-            String token = CashHelper.getDate(key: 'token') ?? '';
+            CashHelper.saveData(
+                    key: 'token', value: state.signUpModel.data!.accessToken)
+                .then(
+              (value) {
+                if (value) {
+                  pushReplacement(route: const HomeScreen(), context: context);
+                }
+              },
+            );
+            token = state.signUpModel.data!.accessToken!;
             print(token);
           }
         },
@@ -167,8 +175,10 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               controller: adressController,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'enter valid Email';
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    value.length < 10) {
+                                  return 'enter valid adress';
                                 }
                               },
                             ),

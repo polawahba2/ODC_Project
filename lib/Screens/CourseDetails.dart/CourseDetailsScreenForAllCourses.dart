@@ -9,8 +9,10 @@ import 'package:odc_project/Screens/AllExamScreens.dart/StartCourseExam.dart';
 import '../../Compounent/CourseImageAndInfoBuilder.dart';
 import '../../Cubit/AppCubit/AppCubit.dart';
 
-class CourseDetailsScreen extends StatelessWidget {
-  CourseDetailsScreen({Key? key}) : super(key: key);
+class CourseDetailsScreenForAllCourses extends StatelessWidget {
+  int index;
+  CourseDetailsScreenForAllCourses({Key? key, required this.index})
+      : super(key: key);
   String text =
       "Welcome to your UX Design for Beginners Course. In the following tutorials, you'll get a thorough introduction to UX design, from its definition, areas and origins through to the skills you need to build a professional portfolio and become a UX designer. ";
 
@@ -19,12 +21,12 @@ class CourseDetailsScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var myCubit = AppCubit.getCubit(context);
 
-    var myModel = myCubit.coursesByCategoryId!.data!.courses![0];
+    var myModel = myCubit.allCoursesModel!.data![index];
     return BlocConsumer<AppCubit, AppSataes>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: myCubit.coursesByCategoryId!.data != null,
+          condition: myCubit.allCoursesModel!.data != null,
           builder: (context) {
             return SafeArea(
               child: Scaffold(
@@ -95,7 +97,9 @@ class CourseDetailsScreen extends StatelessWidget {
                             text: 'Start Course',
                             color: K_ORANGE_COLOR,
                             press: () => pushOnly(
-                                route: StartCourseExam(index: 1),
+                                route: StartCourseExam(
+                                  index: index,
+                                ),
                                 context: context),
                           ),
                         ),

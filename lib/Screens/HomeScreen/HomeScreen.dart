@@ -43,6 +43,7 @@ class HomeScreen extends StatelessWidget {
             currentIndex: AppCubit.getCubit(context).bottomNavIndex,
             selectedItemColor: K_ORANGE_COLOR,
             // showSelectedLabels: false,
+            
             showUnselectedLabels: false,
             onTap: (index) {
               AppCubit.getCubit(context).changeBottomNavIndex(index);

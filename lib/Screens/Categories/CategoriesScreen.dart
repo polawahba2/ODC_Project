@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:odc_project/Compounent/CategoryImageAndText.dart';
 
 import '../../Compounent/Consts.dart';
+import '../../Cubit/AppCubit/AppCubit.dart';
 import '../CourseInformationsWithSearch/CourseInformationsWithSearch.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var myCubit = AppCubit.getCubit(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,37 +41,28 @@ class CategoriesScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                pushOnly(route: const CourseInformations(), context: context);
+                myCubit.getCourseByCategoryId(
+                    myCubit.categoriesModel!.data![index].id!);
+
+                pushOnly(
+                    route: CourseInformationsWithSerach(
+                      currentCategoryId:
+                          myCubit.categoriesModel!.data![index].id!,
+                    ),
+                    context: context);
               },
               child: CategoryImageAndText(
-                text: 'Web Development ',
-                textSize: 15,
+                text: myCubit.categoriesModel!.data![index].categoryName
+                    .toString(),
+                imageUrl:
+                    myCubit.categoriesModel!.data![index].imageUrl.toString(),
               ),
             );
           },
-          itemCount: 7,
+          itemCount: myCubit.categoriesModel!.data!.length,
         ),
       ),
     );
   }
 }
-
-
-/**
-GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: myProducts.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return Container(
-                alignment: Alignment.center,
-                child: Text(myProducts[index]["name"]),
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(15)),
-              );
-            }),
- */
+// myCubit.categoriesModel!.data![index].id!

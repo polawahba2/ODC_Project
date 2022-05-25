@@ -1,12 +1,16 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:odc_project/Screens/LogIn/LogInScree.dart';
+
+import '../Shared/CasheHelper.dart';
 
 // ALL CONST VARRIABLES STARTS WITH K LETTER TO BE EASY TO FIND ;
 const K_WHITE_Color = Colors.white;
 const K_BLACK_Color = Colors.black;
 const K_ORANGE_COLOR = Color.fromRGBO(255, 102, 0, 1);
 const K_HOME_SCREEN_BLACK_COLOR = Color.fromRGBO(27, 24, 22, 1);
+String token = '';
 
 const K_W600 = FontWeight.w600;
 
@@ -39,7 +43,7 @@ void pushOnly({required Widget route, required context}) {
   }));
 }
 
-void pushReplacement({required Widget route, required context}) {
+void pushReplacement({required context, required route}) {
   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
     return route;
   }));

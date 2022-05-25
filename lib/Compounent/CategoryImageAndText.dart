@@ -5,8 +5,10 @@ import 'Consts.dart';
 class CategoryImageAndText extends StatelessWidget {
   String text;
   double textSize;
+  String imageUrl;
   CategoryImageAndText({
     required this.text,
+    required this.imageUrl,
     this.textSize = 10.0,
     Key? key,
   }) : super(key: key);
@@ -25,15 +27,13 @@ class CategoryImageAndText extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    'https://banner2.cleanpng.com/20180808/uby/kisspng-website-development-vector-graphics-clip-art-world-cc2u-ru-%D0%92%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%E5%85%8D-%E8%B2%BB-%E7%8E%A9-%E4%BA%A4-%E9%80%9A-%E9%81%8B-5b6afbdd58d8f6.3221542915337379493639.jpg',
-                  ),
-                  fit: BoxFit.contain,
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.none,
                 ),
                 color: K_WHITE_Color,
               ),
-              height: size.height * 0.088,
+              height: size.height * 0.075,
               width: size.width * 0.20,
             ),
           ),

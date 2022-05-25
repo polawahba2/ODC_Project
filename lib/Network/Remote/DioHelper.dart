@@ -5,25 +5,30 @@ class DioHelper {
   static initialize() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://5742-196-205-94-85.eu.ngrok.io/api/v1',
+        baseUrl: 'https://d67c-196-205-94-85.eu.ngrok.io/api/v1',
         receiveDataWhenStatusError: true,
       ),
     );
   }
 
-  static Future<Response> getData({
+  static Future<Response?> getData({
     required String url,
     Map<String, dynamic>? query,
-    String token = '',
+    required String token,
   }) async {
     dio!.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': token,
+      'Authorization': 'Bearer $token',
     };
-    return await dio!.get(
-      url,
-      queryParameters: query,
-    );
+
+    try {
+      return await dio!.get(
+        url,
+        queryParameters: query,
+      );
+    } on DioError catch (e) {
+      return e.response;
+    }
   }
 
   static Future<Response> postData({

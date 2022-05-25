@@ -32,8 +32,8 @@ class SignUpCubit extends Cubit<SignUpStates> {
         'address': address,
       },
     ).then((value) {
-      emit(SignUpSucessfulState(signUpModel));
       signUpModel = SignUpModel.fromJson(value.data);
+      emit(SignUpSucessfulState(signUpModel));
     }).catchError((error) {
       print(error.toString());
       emit(SignUpErrorState(error.toString()));
